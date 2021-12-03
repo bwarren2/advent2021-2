@@ -39,18 +39,20 @@ impl FromStr for Command {
 struct Position {
     vert: i32,
     horz: i32,
+    aim: i32,
 }
 
 impl Position {
     fn adjust(&mut self, c: &Command) {
         if c.direction == Direction::Up {
-            self.vert += c.amount
+            self.aim -= c.amount;
         }
         if c.direction == Direction::Down {
-            self.vert -= c.amount
+            self.aim += c.amount;
         }
         if c.direction == Direction::Forward {
-            self.horz += c.amount
+            self.horz += c.amount;
+            self.vert += c.amount * self.aim;
         }
     }
     fn prod(&self) -> i32 {
@@ -59,7 +61,7 @@ impl Position {
 }
 
 fn main() {
-    let mut position = Position { vert: 0, horz: 0 };
+    let mut position = Position { vert: 0, horz: 0, aim: 0 };
     let commands = include_str!("commands.txt")
         .lines()
         .map(|val| val.parse().unwrap())
