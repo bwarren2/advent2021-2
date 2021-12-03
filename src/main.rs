@@ -71,3 +71,7 @@ fn main() {
     }
     println!("{:?}", position.prod());
 }
+
+// Need to figure out better parameterized string parsing.
+// Pleased with the "lines, map, collect" pattern and for-reducer, but could it be unified?
+// What error to use?
